@@ -1,0 +1,62 @@
+[
+  {
+    "order_type": "cake",
+    "amount": 500,
+    "state": "created",
+    "order_id": 1,
+    "branch_id": 2,
+    "customer_id": 1,
+    "created_at": 1664716148029,
+    "updated_at": 1664716148029
+  },
+  {
+    "order_type": "cookies",
+    "amount": 500,
+    "state": "created",
+    "order_id": 2,
+    "branch_id": 2,
+    "customer_id": 1,
+    "created_at": 1664716217012,
+    "updated_at": 1664716217012
+  },
+  {
+    "order_type": "cake",
+    "amount": 500,
+    "state": "shipped",
+    "order_id": 4,
+    "branch_id": 2,
+    "customer_id": 1,
+    "created_at": 1664111417012,
+    "updated_at": 1664111417012
+  },
+  {
+    "order_type": "muffins",
+    "amount": 500,
+    "state": "created",
+    "order_id": 6,
+    "branch_id": 2,
+    "customer_id": 1,
+    "created_at": 1662901847176,
+    "updated_at": 1662901847176
+  },
+  {
+    "order_type": "cake",
+    "amount": 500,
+    "state": "cancelled",
+    "order_id": 7,
+    "branch_id": 2,
+    "customer_id": 1,
+    "created_at": 1663506655719,
+    "updated_at": 1663506655719
+  },
+  {
+    "order_type": "cookies",
+    "amount": 500,
+    "state": "delivered",
+    "order_id": 11,
+    "branch_id": 2,
+    "customer_id": 1,
+    "created_at": 1662297065430,
+    "updated_at": 1662297065430
+  }
+]
