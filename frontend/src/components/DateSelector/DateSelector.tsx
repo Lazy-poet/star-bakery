@@ -12,8 +12,9 @@ const DateSelector = (props: Props) => {
     const dateRange = useCustomSelector(state => state.customDate.date)
 
     useEffect(() => {
-        dispatch(toggleCustomDate([new Date(Date.now() - 24 * 60 * 60 * 1000), new Date()]))
-    }, [toggleCustomDate])
+        console.log('dispatched')
+        dispatch(toggleCustomDate([new Date(Date.now()), new Date()]))
+    }, [])
     return (
         <div style={{ maxWidth: 'max-content', background: '#fff', padding: 20 }}>
             <StatefulDatepicker

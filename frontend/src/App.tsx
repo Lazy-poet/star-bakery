@@ -6,6 +6,7 @@ import useCustomDispatch from 'hooks/useCustomDispatch'
 import useCustomSelector from 'hooks/useCustomSelector'
 import axios from 'axios'
 import { fetchOrders } from './store/orderSlice'
+import { toggleRange, Range } from 'store/timeRangeSlice'
 
 function App() {
   const dispatch = useCustomDispatch();
@@ -23,6 +24,7 @@ function App() {
         console.log(e.message)
       }
     })()
+    dispatch(toggleRange(Range.HOURLY))
   }, [])
 
   return (

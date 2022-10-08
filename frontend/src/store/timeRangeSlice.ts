@@ -90,21 +90,20 @@ const getIntervalMonths = (
   return months;
 };
 
-const getMatchingRangeForCustomDate = (difference: number) => {
+export const getMatchingRangeForCustomDate = (difference: number) => {
   const rangeIndex = limits.findIndex((limit) => limit >= difference);
   return rangeIndex > -1 ? rangeIndex : Range.YEARLY;
 };
-const getCustomDateValues = (start: number, end: number) => {
+export const getCustomDateValues = (start: number, end: number) => {
   const difference = end - start;
   const range = getMatchingRangeForCustomDate(difference);
+  console.log('matching range', range)
   switch (range) {
     case Range.HOURLY:
     case Range.DAILY:
-      return getStateValues(range, difference / 1000 / 60, end);
-    case Range.WEEKLY:
-    case Range.MONTHLY:
-    case Range.YEARLY:
-      return getStateValues(range, difference / 1000 / 60 / 60 / 24, end);
+      return getStateValues(range, Math.round(difference / 1000 / 60), end);
+    default:
+      return getStateValues(range, Math.round(difference / 1000 / 60 / 60 / 24), end);
   }
 };
 const getStateValues = (
@@ -112,7 +111,6 @@ const getStateValues = (
   limit?: number,
   currentTime?: number
 ) => {
-  console.log("limit is", limit);
   switch (range) {
     case Range.HOURLY:
       return getIntervalTimes(1, limit || 60, currentTime || Date.now());

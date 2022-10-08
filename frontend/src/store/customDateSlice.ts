@@ -5,7 +5,7 @@ type InitialState = {
   date: [Date, Date];
 };
 const initialState = {
-  date: [new Date(Date.now() - 24 * 60 * 60 * 1000), new Date()],
+  date: [] as any,
   custom: false,
 } as InitialState;
 

@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { toggleRange, Range, defaultValues } from "./timeRangeSlice";
+import {
+  toggleRange,
+  Range,
+  defaultValues,
+  getCustomDateValues,
+  getMatchingRangeForCustomDate,
+} from "./timeRangeSlice";
 import { toggleCustomDate } from "./customDateSlice";
 import { filterLabelData } from "utils";
 export interface Order {
@@ -90,19 +96,20 @@ const filterOrders = (orders: Order[], start: number, end: number) => {
 
 const setChartsData = (
   state: InitialState,
+  filteredOrders: Order[],
   range: Range,
-  filteredOrders: Order[]
+  customDate?: [number, number]
 ) => {
   return {
     orderNumbersChart: filterLabelData(
       filteredOrders,
-      defaultValues[range],
+      customDate ? getCustomDateValues(...customDate) : defaultValues[range],
       range,
       "orderNumbersChart"
     ),
     orderValueChart: filterLabelData(
       filteredOrders,
-      defaultValues[range],
+      customDate ? getCustomDateValues(...customDate) : defaultValues[range],
       range,
       "orderValueChart"
     ),
@@ -111,7 +118,7 @@ const setChartsData = (
     ).reduce((obj, key) => {
       obj[key] = filterLabelData(
         filteredOrders.filter((order) => order.state === key),
-        defaultValues[range],
+        customDate ? getCustomDateValues(...customDate) : defaultValues[range],
         range,
         "orderStateChart"
       );
@@ -122,7 +129,7 @@ const setChartsData = (
     ).reduce((obj, key) => {
       obj[key] = filterLabelData(
         filteredOrders.filter((order) => order.order_item === key),
-        defaultValues[range],
+        customDate ? getCustomDateValues(...customDate) : defaultValues[range],
         range,
         "orderTypeChart"
       );
@@ -149,8 +156,8 @@ const orderSlice = createSlice({
         state.filteredOrders = filteredOrders;
         state.defaultChartData = setChartsData(
           state,
-          action.payload,
-          filteredOrders
+          filteredOrders,
+          action.payload
         );
       })
       .addCase(toggleCustomDate, (state, action) => {
@@ -158,13 +165,19 @@ const orderSlice = createSlice({
           state.orders,
           ...getLimitsRange(Range.CUSTOM, action.payload)
         );
+        const [start, end] = action.payload;
+
         state.filteredOrders = filteredOrders;
+        const matchingRange = getMatchingRangeForCustomDate(
+          new Date(end).getTime() - new Date(start).getTime()
+        );
         state.defaultChartData = setChartsData(
           state,
-          action.payload,
-          filteredOrders
+          filteredOrders,
+          matchingRange,
+          [new Date(start).getTime(), new Date(end).getTime()]
         );
-      })
+      }),
 });
 
 export const { fetchOrders } = orderSlice.actions;
