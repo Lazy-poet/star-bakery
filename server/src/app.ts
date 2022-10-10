@@ -11,6 +11,7 @@ const app = express();
 import { CustomError } from "./utils/error";
 import connectDB from './database/mongoConnect'
 import { connectTestDB } from "./database/mongoMemoryConnect"
+import path from 'path'
 // app.use(compression());
 dotenv.config()
 if (process.env.NODE_ENV === "test") {
@@ -25,11 +26,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger("dev"));
 
-app.get("/", (_req, res: Response) => {
-  res.redirect("/api/star-bakery/v1");
-});
 app.use("/api/star-bakery/v1", routes);
+app.use("/", express.static(path.join(__dirname, "../../frontend/dist")));
 
+app.get("/*", (_req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist", "index.html"));
+})
 // catch 404 and forward to error handler
 app.use((_req: Request, _res: Response, next: NextFunction) => {
   next(createError(404));

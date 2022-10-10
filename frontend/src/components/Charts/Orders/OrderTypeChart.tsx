@@ -112,9 +112,7 @@ const Chart = () => {
     }
   };
 
-  const timeRangeType = useCustomSelector(state => state.timeRange.range);
   const timeRangeValues = useCustomSelector(state => state.timeRange.values);
-  const filteredOrders = useCustomSelector(state => state.orders.filteredOrders);
   const backgroundColors = ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)', 'rgba(75, 192, 192, 1)']
   const typeFilteredOrders = useCustomSelector(state => state.orders.defaultChartData.orderTypeChart);
   const data = {
