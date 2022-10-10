@@ -15,8 +15,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import isSameMinute from 'date-fns/isSameMinute'
-
+import ZoomPlugin from "chartjs-plugin-zoom";
+import { MdZoomIn, MdZoomOut } from 'react-icons/md'
 ChartJS.defaults.hover.intersect = false;
 ChartJS.register(
   CategoryScale,
@@ -26,7 +26,8 @@ ChartJS.register(
   Title,
   Filler,
   Tooltip,
-  Legend
+  Legend,
+  ZoomPlugin
 );
 
 
@@ -51,14 +52,26 @@ const OrdersNumberChart = () => {
       },
       zoom: {
         zoom: {
-          enabled: true,
-          mode: 'xy' as const,
+          wheel: {
+            enabled: true // SET SCROOL ZOOM TO TRUE
+          },
+          pinch: {
+            enabled: true
+          },
+          drag: {
+            enabled: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            threshold: 100,
+
+          },
+          mode: "x" as const,
+          // speed: 10
         },
         pan: {
           enabled: true,
-          mode: 'xy' as const,
+          mode: "xy" as const,
+          speed: 10
         }
-
       },
       tooltips: {
         mode: "index",
@@ -118,10 +131,8 @@ const OrdersNumberChart = () => {
       }
     }
   };
-  const timeRangeType = useCustomSelector(state => state.timeRange.range);
 
   const timeRangeValues = useCustomSelector(state => state.timeRange.values);
-  const filteredOrders = useCustomSelector(state => state.orders.filteredOrders);
   const labelData = useCustomSelector(state => state.orders.defaultChartData['orderNumbersChart'])
 
   // console.log('data', labelData1)
@@ -149,6 +160,10 @@ const OrdersNumberChart = () => {
   };
 
   return <div style={{ position: 'relative' }}>
+    <div style={{ display: 'flex', padding: '20px 0', gap: 10, color: '#444', alignItems: 'center', fontSize: '1.2rem' }}>
+      {/* <MdZoomIn style={{ cursor: 'pointer' }} onClick={handleZoom}/> */}
+      {/* <MdZoomOut style={{ cursor: 'pointer' }} onClick={handleZoom}/> */}
+    </div>
     <Line options={options} data={data} />
     {!labelData.length && <div style={{
       position: 'absolute',
@@ -187,14 +202,17 @@ const OrdersValueChart = () => {
       },
       zoom: {
         zoom: {
-          enabled: true,
-          mode: 'xy' as const,
+          wheel: {
+            enabled: true // SET SCROOL ZOOM TO TRUE
+          },
+          mode: "xy" as const,
+          speed: 10
         },
         pan: {
           enabled: true,
-          mode: 'xy' as const,
+          mode: "xy" as const,
+          speed: 10
         }
-
       },
       tooltips: {
         mode: "index",

@@ -1,7 +1,6 @@
 import { FC } from 'react'
-import { Range, toggleRange } from 'store/timeRangeSlice'
+import { Range, } from 'store/timeRangeSlice'
 import { Order, OrderType } from 'store/orderSlice'
-import useCustomDispatch from 'hooks/useCustomDispatch'
 import useCustomSelector from 'hooks/useCustomSelector'
 import {
   Chart as ChartJS,

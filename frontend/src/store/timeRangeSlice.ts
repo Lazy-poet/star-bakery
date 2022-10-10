@@ -61,7 +61,7 @@ const getIntervalDays = (
 
     const label = time.toLocaleString("en-US", {
       day: "2-digit",
-      month: "numeric",
+      month: "short",
       year: "2-digit",
     });
     days.unshift({ timestamp, label });
@@ -81,7 +81,7 @@ const getIntervalMonths = (
     const time = new Date(timestamp);
 
     const label = time.toLocaleString("en-US", {
-      month: "numeric",
+      month: "short",
       year: "2-digit",
     });
     months.unshift({ timestamp, label });
