@@ -77,7 +77,10 @@ const Chart = () => {
     }]
   };
 
-  return <div style={{ maxWidth: 500, maxHeight: 500, margin: '20px auto' }}> <Pie options={options} data={data} /></div>
+  return <div style={{ maxWidth: 500, maxHeight: 500, margin: '20px auto' }}>
+    {branches.length ? <Pie options={options} data={data} /> :
+      <p>No data found </p>}
+  </div>
 
 }
 export default Chart;

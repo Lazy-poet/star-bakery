@@ -27,6 +27,6 @@ export default new (class BranchController {
         return {...branch.toObject(), orders: orders?.length || 0};
       })
     );
-    return response.setSuccess(res, 201, "success", result);
+    return response.setSuccess(res, 200, "success", result);
   });
 })();

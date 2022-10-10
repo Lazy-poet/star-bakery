@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  db:
+    container_name: StarBakeryDB
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./starbakerydata:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE= StarBakery
+    ports:
+      - 27018:27017
+
+  app:
+    build: ./
+    volumes:
+      - ../:/var/www/app
+    ports:
+      - 4100:4100
+    environment:
+      - NODE_ENV=local
+      - DATABASE_URL=mongodb://StarBakeryDB:27017/StarBakery
+      - JWT_SECRET_KEY=starbakery123
+    command:
+      sh -c 'cd server && yarn && yarn start'
