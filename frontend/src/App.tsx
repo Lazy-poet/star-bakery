@@ -20,7 +20,7 @@ function App() {
         })
         dispatch(fetchOrders(data));
 
-        dispatch(toggleRange(Range.HOURLY))
+        dispatch(toggleRange(Range.DAILY))
       }
       catch (e: any) {
         console.log(e.message)
