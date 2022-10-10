@@ -15,8 +15,12 @@ export class OrderService {
     return order;
   }
 
-  async getAll(){
-    const orders = await OrderModel.find()
-    return orders
+  async getAll() {
+    const orders = await OrderModel.find();
+    return orders;
+  }
+  async findById(_id: string) {
+    const order = await OrderModel.findOne({ _id });
+    return order;
   }
 }

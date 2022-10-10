@@ -11,7 +11,8 @@ export default new (class OrderRoutes {
 
   private initRoute = () => {
     this.router.get("/", OrderController.getOrders);
-    this.router.post("/create", AuthMiddleware, OrderController.createOrder);
+    this.router.get("/:id", OrderController.getOrder);
+    this.router.post("/", AuthMiddleware, OrderController.createOrder);
     this.router.put("/update/:id", AuthMiddleware, OrderController.updateOrder);
   };
 })();

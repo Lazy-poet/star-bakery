@@ -17,7 +17,7 @@ class Routes {
 
     this.router.use("/auth", UserRoutes.router);
     this.router.use("/items",ItemRoutes.router);
-    this.router.use("/orders", OrderRoutes.router);
+    this.router.use("/order", OrderRoutes.router);
     this.router.use("/branch", BranchRoutes.router);
   };
 }

@@ -30,7 +30,7 @@ export default new (class OrderController {
     };
     const order = await this.orderService.create(data);
     if (order) {
-      return response.setSuccess(res, 201, "success", order);
+      return response.setSuccess(res, 201, "success", { id: order._id });
     }
   });
 
@@ -41,9 +41,15 @@ export default new (class OrderController {
       return response.setSuccess(res, 200, "item updated", item);
     }
   });
-
+  getOrder = catchAsyncError(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const item = await this.orderService.findById(id);
+    if (item) {
+      return response.setSuccess(res, 200, "success", item);
+    }
+  });
   getOrders = catchAsyncError(async (_req: Request, res: Response) => {
     const orders = await this.orderService.getAll();
-    return response.setSuccess(res, 200, "success", orders)
-  })
+    return response.setSuccess(res, 200, "success", orders);
+  });
 })(new OrderService());
